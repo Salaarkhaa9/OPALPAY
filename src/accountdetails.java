@@ -1,14 +1,8 @@
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-//import java.awt.Toolkit;
-//import java.awt.event.WindowEvent;
-//import java.sql.*;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
 public class accountdetails extends javax.swing.JFrame {
     public accountdetails() {
         initComponents();
@@ -197,9 +191,8 @@ public class accountdetails extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
             // TODO add your handling code here:
-//        close();
-//        home l=new home();
-//        l.setVisible(true);
+        home l=new home();
+        l.setVisible(true);
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
