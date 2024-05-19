@@ -398,7 +398,7 @@ public class home extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        transfer t=new transfer();
+        transaction t=new transaction();
         t.setVisible(true);
         
     }//GEN-LAST:event_jButton4ActionPerformed

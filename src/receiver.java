@@ -22,7 +22,7 @@ public class receiver extends javax.swing.JFrame {
     }
     private void formWindowOpened(java.awt.event.WindowEvent evt){
         databse db=new databse();
-        String username=transfer.getreceiver();
+        String username=transaction.getreceiver();
         try {        
         String sql="SELECT *FROM user WHERE name= '"+username+"'";
         ResultSet rs=db.stm.executeQuery(sql);
@@ -125,7 +125,7 @@ public class receiver extends javax.swing.JFrame {
     private void sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendActionPerformed
         // TODO add your handling code here:
     databse db = new databse();
-    String receiverName = transfer.getreceiver();
+    String receiverName = transaction.getreceiver();
     String senderName = login.getloggedinuser();
 
     try {
@@ -145,7 +145,7 @@ public class receiver extends javax.swing.JFrame {
             receiverBalance = receiverRS.getDouble("balance");
         }
 
-        // Get the transfer amount
+        // Get the transaction amount
         double transferAmount = Double.parseDouble(amount.getText());
 
         // Check if the sender has enough balance
