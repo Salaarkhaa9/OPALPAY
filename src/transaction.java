@@ -171,10 +171,14 @@ public class transaction extends javax.swing.JFrame {
         // TODO add your handling code here:
         int notfound=0;
         String pasnum=null;
+        String uname=trname.getText();
+        String number=trnum.getText();
+        if(uname.equals(login.getloggedinuser())){
+                JOptionPane.showMessageDialog(this, "Logged in user cannot transfer funds to his account");
+        }
+        else{
         try{
-            databse db=new databse();
-            String uname=trname.getText();
-            String number=trnum.getText();
+            databse db=new databse();    
             String sql="SELECT *FROM user WHERE name= '"+uname+"'";
             ResultSet rs=db.stm.executeQuery(sql);
             while(rs.next()){
@@ -192,6 +196,7 @@ public class transaction extends javax.swing.JFrame {
             
         }catch(Exception e){
             e.printStackTrace();
+        }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
     
