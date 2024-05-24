@@ -1,12 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-//import java.awt.Toolkit;
-import java.sql.Statement;
-import java.sql.ResultSet;
-//import java.awt.event.WindowEvent;
-//import java.sql.SQLException;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
+import java.sql.ResultSet;  
 import javax.swing.JOptionPane;
 
 /*
@@ -24,8 +16,8 @@ public class login extends javax.swing.JFrame {
         
     }
     static String loggedinuser;
-    public void login(String username){
-        loggedinuser=username;
+    public void login(String email){
+        loggedinuser=email;
     }
     public static String getloggedinuser(){
         return loggedinuser;
@@ -40,7 +32,7 @@ public class login extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         kGradientPanel1 = new keeptoo.KGradientPanel();
-        editusername = new javax.swing.JTextField();
+        editemail = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         editpassword = new javax.swing.JPasswordField();
@@ -67,15 +59,15 @@ public class login extends javax.swing.JFrame {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/1796874_1.png"))); // NOI18N
 
-        editusername.addActionListener(new java.awt.event.ActionListener() {
+        editemail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editusernameActionPerformed(evt);
+                editemailActionPerformed(evt);
             }
         });
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 10)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Username");
+        jLabel2.setText("Email");
 
         jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 10)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -120,7 +112,7 @@ public class login extends javax.swing.JFrame {
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(editusername, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editemail, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                     .addComponent(btnreset)
@@ -140,7 +132,7 @@ public class login extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(editusername, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(editemail, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -200,22 +192,19 @@ public class login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void editusernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editusernameActionPerformed
+    private void editemailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editemailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_editusernameActionPerformed
-//    public void close(){
-//        WindowEvent closewindow=new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
-//        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closewindow);
-//    }
+    }//GEN-LAST:event_editemailActionPerformed
+
     private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
         // TODO add your handling code here:
         int notfound=0;
         String passDB=null;
         try{
             databse db=new databse();
-            String username=editusername.getText();
+            String umail=editemail.getText();
             String password=editpassword.getText();
-            String sql="SELECT *FROM user WHERE name= '"+username+"'";
+            String sql="SELECT *FROM user WHERE email= '"+umail+"'";
             ResultSet rs=db.stm.executeQuery(sql);
             while(rs.next()){
                 passDB=rs.getString("password");
@@ -224,7 +213,7 @@ public class login extends javax.swing.JFrame {
             if(notfound==1 && password.equals(passDB)){
               dispose();
               new home().setVisible(true);
-              login(username);
+              login(umail);
             }else{
                JOptionPane.showMessageDialog(this, "Username or Password is wrong"); 
             }
@@ -236,7 +225,7 @@ public class login extends javax.swing.JFrame {
 
     private void btnresetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnresetActionPerformed
         // TODO add your handling code here:
-        editusername.setText("");
+        editemail.setText("");
         editpassword.setText("");
     }//GEN-LAST:event_btnresetActionPerformed
 
@@ -279,8 +268,8 @@ public class login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnlogin;
     private javax.swing.JButton btnreset;
+    public javax.swing.JTextField editemail;
     private javax.swing.JPasswordField editpassword;
-    public javax.swing.JTextField editusername;
     private javax.swing.JLabel image;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
