@@ -59,6 +59,8 @@ public class login extends javax.swing.JFrame {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/1796874_1.png"))); // NOI18N
 
+        editemail.setBackground(new java.awt.Color(204, 204, 204));
+        editemail.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         editemail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editemailActionPerformed(evt);
@@ -73,8 +75,11 @@ public class login extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Password");
 
+        editpassword.setBackground(new java.awt.Color(204, 204, 204));
+        editpassword.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+
         btnreset.setBackground(new java.awt.Color(102, 102, 102));
-        btnreset.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        btnreset.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
         btnreset.setForeground(new java.awt.Color(255, 255, 255));
         btnreset.setText("Reset");
         btnreset.addActionListener(new java.awt.event.ActionListener() {
@@ -84,7 +89,7 @@ public class login extends javax.swing.JFrame {
         });
 
         btnlogin.setBackground(new java.awt.Color(102, 102, 102));
-        btnlogin.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        btnlogin.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
         btnlogin.setForeground(new java.awt.Color(255, 255, 255));
         btnlogin.setText("Login");
         btnlogin.addActionListener(new java.awt.event.ActionListener() {
@@ -139,8 +144,8 @@ public class login extends javax.swing.JFrame {
                 .addComponent(editpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnreset)
-                    .addComponent(btnlogin))
+                    .addComponent(btnreset, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnlogin, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -200,6 +205,7 @@ public class login extends javax.swing.JFrame {
         // TODO add your handling code here:
         int notfound=0;
         String passDB=null;
+        String num=null;
         try{
             databse db=new databse();
             String umail=editemail.getText();
@@ -208,6 +214,7 @@ public class login extends javax.swing.JFrame {
             ResultSet rs=db.stm.executeQuery(sql);
             while(rs.next()){
                 passDB=rs.getString("password");
+                num=rs.getString("number");
                 notfound=1;
             }
             if(notfound==1 && password.equals(passDB)){

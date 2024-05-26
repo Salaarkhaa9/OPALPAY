@@ -51,6 +51,7 @@ public class transaction extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Transfer to");
+        jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jLabel1.setOpaque(true);
 
         jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 10)); // NOI18N
@@ -195,7 +196,6 @@ public class transaction extends javax.swing.JFrame {
             if(notfound==1 && number.equals(pasnum)){
               dispose();
               new receiver().setVisible(true);
-//              transaction t=new transaction();
               transfer(uemail);
             }else{
                JOptionPane.showMessageDialog(this, "User doesnot exist"); 
