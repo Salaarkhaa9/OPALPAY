@@ -6,6 +6,8 @@ import javax.swing.JOptionPane;
 //import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import java.awt.Image;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class receiver extends javax.swing.JFrame {
 //    private JPanel imagePanel;
     public receiver() {
@@ -20,9 +22,11 @@ public class receiver extends javax.swing.JFrame {
     }
     static String recuser;
     static double tamount;
-    public void receiver(String email,double amnt){
+    static int sendid;
+    public void receiver(String email,double amnt, int id){
         recuser=email;
         tamount=amnt;
+        sendid=id;
     }
     public static String getrecuser(){
         return recuser;
@@ -31,6 +35,9 @@ public class receiver extends javax.swing.JFrame {
     public static double getrecam(){
         return tamount;
         
+    }
+    public static int getrecid(){
+        return sendid;
     }
     private void formWindowOpened(java.awt.event.WindowEvent evt){
         databse db=new databse();
@@ -78,6 +85,7 @@ public class receiver extends javax.swing.JFrame {
         send = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 253, 236));
 
@@ -196,13 +204,16 @@ public class receiver extends javax.swing.JFrame {
     databse db = new databse();
     String receiverEmail = transaction.getreceiver();
     String senderEmail = login.getloggedinuser();
-
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+    LocalDateTime now = LocalDateTime.now();
     try {
         // Fetch the sender's balance
         String senderQuery = "SELECT * FROM user WHERE email = '" + senderEmail + "'";
         ResultSet senderRS = db.stm.executeQuery(senderQuery);
         double senderBalance = 0.0;
+        int senderid=0;
         while (senderRS.next()) {
+            senderid=senderRS.getInt("id");
             senderBalance = senderRS.getDouble("balance");
         }
 
@@ -210,7 +221,9 @@ public class receiver extends javax.swing.JFrame {
         String receiverQuery = "SELECT * FROM user WHERE email = '" + receiverEmail + "'";
         ResultSet receiverRS = db.stm.executeQuery(receiverQuery);
         double receiverBalance = 0.0;
+        String receiverName=null;
         while (receiverRS.next()) {
+            receiverName=receiverRS.getString("name");
             receiverBalance = receiverRS.getDouble("balance");
         }
 
@@ -230,8 +243,10 @@ public class receiver extends javax.swing.JFrame {
             db.stm.executeUpdate(updateReceiverQuery);
             dispose();
             JOptionPane.showMessageDialog(this, "Transfer successful!");
+            String transql="INSERT INTO transaction(name, date, amount, recid) VALUES ('" + receiverName + "', '" + dtf.format(now) + "', '" + transferAmount + "', '" + senderid + "')";            
+            db.stm.executeUpdate(transql);
             new receipt().setVisible(true);
-            receiver(receiverEmail,transferAmount);
+            receiver(receiverEmail,transferAmount,senderid);
         } else {
             JOptionPane.showMessageDialog(this, "Insufficient balance!");
         }

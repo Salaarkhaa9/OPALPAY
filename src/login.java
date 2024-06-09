@@ -16,11 +16,16 @@ public class login extends javax.swing.JFrame {
         
     }
     static String loggedinuser;
-    public void login(String email){
+    static int senderid;
+    public void login(String email,int sendid){
         loggedinuser=email;
+        senderid=sendid;
     }
     public static String getloggedinuser(){
         return loggedinuser;
+    }
+    public static int getloggedid(){
+        return senderid;
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -42,6 +47,7 @@ public class login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 102, 102));
+        setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -59,7 +65,6 @@ public class login extends javax.swing.JFrame {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/1796874_1.png"))); // NOI18N
 
-        editemail.setBackground(new java.awt.Color(204, 204, 204));
         editemail.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         editemail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,7 +80,6 @@ public class login extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Password");
 
-        editpassword.setBackground(new java.awt.Color(204, 204, 204));
         editpassword.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
 
         btnreset.setBackground(new java.awt.Color(102, 102, 102));
@@ -120,9 +124,9 @@ public class login extends javax.swing.JFrame {
                             .addComponent(editemail, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                    .addComponent(btnreset)
+                                    .addComponent(btnreset, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnlogin))
+                                    .addComponent(btnlogin, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(editpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGap(63, 63, 63)
@@ -212,7 +216,9 @@ public class login extends javax.swing.JFrame {
             String password=editpassword.getText();
             String sql="SELECT *FROM user WHERE email= '"+umail+"'";
             ResultSet rs=db.stm.executeQuery(sql);
+            int sid=0;
             while(rs.next()){
+                sid=rs.getInt("id");
                 passDB=rs.getString("password");
                 num=rs.getString("number");
                 notfound=1;
@@ -220,7 +226,7 @@ public class login extends javax.swing.JFrame {
             if(notfound==1 && password.equals(passDB)){
               dispose();
               new home().setVisible(true);
-              login(umail);
+              login(umail,sid);
             }else{
                JOptionPane.showMessageDialog(this, "Username or Password is wrong"); 
             }

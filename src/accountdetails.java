@@ -86,6 +86,7 @@ public class accountdetails extends javax.swing.JFrame {
         qrcode = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(255, 253, 236));
 
